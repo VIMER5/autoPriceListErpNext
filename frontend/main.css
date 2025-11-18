@@ -1,0 +1,21 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(64, 64, 60);
+  min-height: 100dvh;
+  color: white;
+}
+#app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.mainPanel {
+  border-radius: 20px;
+  width: 30%;
+  height: 50ch;
+  color: black;
+  padding: 20px;
+  background-color: white;
+  margin: auto;
+}
