@@ -11,9 +11,42 @@
   <body>
     <div id="app">
       <div class="mainPanel">
-        <select name="" id="">
-          <option v-for="item in brends" value="dd">{{ item.name }}</option>
-        </select>
+        <div class="boxContent">
+          <div class="brand input">
+            <label for="brand">Бренд</label>
+            <select v-model="selectVFor.brand" name="brand" id="ttt">
+              <option v-for="item in data.brends" :value="item.name">{{ item.name }}</option>
+            </select>
+          </div>
+
+          <div class="priceList input">
+            <label for="price">Прайс-лист</label>
+            <select v-model="selectVFor.PriceList" name="price" id="price">
+              <option v-for="item in data.PriceList" :value="item.name">{{ item.name }}</option>
+            </select>
+          </div>
+
+          <div class="currency input">
+            <label for="currency">Цена</label>
+            <input v-model="selectVFor.currency" name="currency" type="number" />
+          </div>
+
+          <button @click="send">Add All</button>
+        </div>
+        <fieldset class="detail">
+          <legend>Детали</legend>
+          <div class="detail">
+            <ul>
+              <li>Бренд: {{selectVFor.brand}}</li>
+              <li>Прайс-лист: {{selectVFor.PriceList}}</li>
+              <li>Цена: {{selectVFor.currency}}₽</li>
+            </ul>
+          </div>
+        </fieldset>
+        <fieldset class="info">
+          <legend>Info</legend>
+          <div class="d">{{ info }}</div>
+        </fieldset>
       </div>
     </div>
 

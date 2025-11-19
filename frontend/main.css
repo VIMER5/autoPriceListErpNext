@@ -4,6 +4,7 @@ body {
   background-color: rgb(64, 64, 60);
   min-height: 100dvh;
   color: white;
+  font-size: 20px;
 }
 #app {
   min-height: 100dvh;
@@ -18,4 +19,27 @@ body {
   padding: 20px;
   background-color: white;
   margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.info {
+  border: 1px solid black;
+}
+
+.boxContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
 }
