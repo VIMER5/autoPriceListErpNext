@@ -1,6 +1,10 @@
 import express from "express";
 import $erpApi from "./axios/erpAPI.js";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import cors from "cors";
 dotenv.config({ path: ".env" });
 
@@ -8,12 +12,14 @@ await isValidENV();
 const app = express();
 app.use(express.json());
 app.use(cors(["*"]));
+app.use(express.static(path.join(__dirname, "/frontend")));
 
 app.get("/getBrands", async (req, res) => {
   try {
     const test = await $erpApi.post("method/frappe.client.get_list", {
       doctype: "Brand",
       fields: ["name"],
+      limit_page_length: 100000,
     });
 
     res.status(200).json(test.data.message);
@@ -59,6 +65,7 @@ app.post("/addAllBrands", async (req, res) => {
         });
       }
     });
+
     const results = [];
     for (const item of doc) {
       // results.push(`Add: '${item.item_code}' в ${item.price_list} по ${item.price_list_rate}₽`);
@@ -66,7 +73,9 @@ app.post("/addAllBrands", async (req, res) => {
         const result = await $erpApi.post("method/frappe.client.insert", {
           doc: item,
         });
-        results.push(`Add: '${result.item_code}' в ${result.price_list} по ${result.price_list_rate}₽`);
+        results.push(
+          `Add: '${result.data.message.item_code}' в ${result.data.message.price_list} по ${result.data.message.price_list_rate}₽`
+        );
       } catch (error) {
         console.log(error);
       }
@@ -75,6 +84,10 @@ app.post("/addAllBrands", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.get("/", async (req, res) => {
+  res.sendFile(path.join(path.join(__dirname, "/frontend", "index.html")));
 });
 
 app.listen(3000, () => {
@@ -103,7 +116,6 @@ async function checkExistingPrices(item, priceList) {
     ],
     fields: ["item_code", "price_list_rate"],
   });
-  console.log(existingPrices.data.message);
   const existingMap = new Map();
   existingPrices.data.message.forEach((price) => {
     const key = `${price.item_code}_${priceList}`;
