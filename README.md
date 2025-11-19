@@ -10,9 +10,8 @@
 ![IMG2](https://github.com/VIMER5/autoPriceListErpNext/blob/img/2.jpg)
 ---
 
-
+В .ebv
 ```
-#include <.env>
 SecretKey="ERPNextSecretKey"
 PublicKey="ERPNextPublicKey"
 DomenErp="ERPNextURL"
